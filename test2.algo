@@ -1,0 +1,54 @@
+ALGORITHM SUM1
+VAR  i; j; S; N1; N2; Sum INTEGER;
+     T1[0..N1], T2[0..N2]: ARRAY_OF INTEGER;
+BEGIN     
+    WRITE ("Enter T1 and T2:") ;
+    Read (N1), Read(N2) ;
+    Sum:=0;
+    i:=0 ;
+    j:=0 ;
+    FOR i FROM 0 To (N1-1) STEP 1 DO
+    FOR j FROM 0 To (N2-1) STEP 1 DO
+        IF (T1[i] <> T2[j]) THEN
+         {
+           Sum:= Sum + T1[i] ;
+         }
+        End_IF
+    End_FOR
+    End_FOR
+END 
+______________________________
+
+ALGORITHM SUM2
+VAR
+    T1[],T2[] : ARRAY_OF INTEGER;
+    set_keys : ARRAY_OF INTEGER;
+    dict := HASH_TABLE<INTEGER,INTEGER>;
+    i, count : INTEGER;
+    sum : INTEGER := 0;
+BEGIN
+    WRITE ("Enter T1 and T2:") ;
+    Read (T1[]), Read(T2[]);
+    FOR i FROM 0 TO T1.length -1 STEP 1  DO
+        IF (dict.lookup(T1[i]) = TRUE) THEN
+            {count := dict.get(T1[i]);
+            dict.insert(T1[i],count+1)};
+        ELSE
+            {dict.insert(T1[i],1)};
+        END_IF
+    END_FOR
+    FOR i FROM 0 TO T2.length -1 STEP 1  DO
+        IF (dict.lookup(T2[i]) = TRUE) THEN
+           { count := dict.get(T2[i]);
+            dict.insert(T2[i],count+1)};
+        ELSE
+            {dict.insert(T2[i],1)};
+        END_IF
+    END_FOR
+    set_keys := dict.getKeys();
+    FOR i FROM 0 TO set_keys.length -1 STEP 1  DO
+        IF (dict.get(set_keys[i]) = 1) THEN
+            {sum := sum +set_keys[i]};
+        END_IF
+    END_FOR
+END
